@@ -1,4 +1,4 @@
-The MAD-X script present in this folder do not run. There are a set of issues.
+The MAD-X scripts present in this folder do not run. There are a set of issues.
 
 - FHBBKE: sbend, l = 0; (Error message: +=+=+= fatal: bend with zero length: fhbbke)
 - Possible solution: FHBBKE and the other beam-beam elements are ignored
