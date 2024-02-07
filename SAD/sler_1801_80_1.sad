@@ -9921,7 +9921,7 @@
  ;
 
 ;
- LINE ASC=
+ LINE LER=
        (IP         FBMBMP   FHBBKP   FVBBKP   ESLP0    ECSLP5   ESLP10  
         ECSLP15    ESLP20   ECSLP25  ESLP30   ECSLP35  ESLP40   ECSLP45 
         ESLP50     ECSLP55  ESLP60   ECSLP65  ESLP70   ECSLP75  ESLP80  
@@ -11061,23 +11061,27 @@
         ECSRP45    ESRP40   ECSRP35  ESRP30   ECSRP25  ESRP20   ECSRP15 
         ESRP10     ECSRP5   ESRP0    IP      )
  ;
- ;
 
 MOMENTUM = 4e+09;
 PBUNCH =35101697183.518524;
 MINCOUP =.03;
 FSHIFT =-2.8485169586629128e-06;
 
-FFS USE=ASC;
-CELL;
-CALC;
+CONVERGENCE=10^-32;
+RAD; ! Turn on radiation in all elements.
+NOFLUC; ! Turn off quantum effects.
+RADCOD; ! calculate orbit considering radiation loss
+RADTAPER; ! automatic tapering of all magnets according to local energy of the closed orbit.
 
-end;
+FFS USE=LER;
+CELL;
+CALCULATE;
 
 (* CW OFF *)
 Scan[(Element["K2",#[[1]]]=#[[2]])&,
 {{"SLYTRP1",2.3521566137523626},{"SLYTRP2",2.3521566137523626},{"SLYTLP1",2.4273642032365093},
- {"SLYTLP2",2.4273642032365093}}];
+{"SLYTLP2",2.4273642032365093}}];
 FFS["CALC"];
 
-end;
+Get["../toolkit/twiss.n"];
+SaveTwissFile["twiss_sler_1801_80_1.tfs"];
